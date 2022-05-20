@@ -1,3 +1,4 @@
+#PASSWORD GENERATOR
 # Importing modules
 from colorama import Fore, Style
 import random, os, sys, time
