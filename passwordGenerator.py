@@ -14,23 +14,29 @@ def clear():
 # Function to generate a random password
 def getPass():
     
+    # Variable to store the password
+    password = ""
+    
     # Asks user what length they'd like their password to be.
     passwordLen = int(input(Style.RESET_ALL + "Input the amount of characters you'd like your password to have.\n\nIf the length of your password is irrelevant, input 999.\n\n"))
 
     # Evaluates user input
     if passwordLen == 999:
+        
         # 8-21 = Recommended length of a password 
         passwordLen = random.randint(8, 21)
+        
     elif passwordLen < 0 or passwordLen == 0:
         clear()
         print("Please input a number greater than 0.")
         time.sleep(3)
         clear()
         getPass()
+        
     # Clears any previous console output
     clear()
 
-    # Cool little typing animation (lines 35-46)
+    # Cool little typing animation (lines 40-51)
     animation1 = "Your generated password is"
     animation2 = "..."
     
@@ -43,25 +49,30 @@ def getPass():
         print(char, end = "")
         sys.stdout.flush()
         time.sleep(1)
-
+    
+    # Prints new line
     print("\n")
     
     # For loop that generates the password.
     for i in range(passwordLen):
-        print(random.choice(listOfChar), end = "")
+        password = random.choice(listOfChar)
+        
+    print(password)
 
+    # Runs getPass2 function
     getPass2()
 
 # Function to assure the user of his new generated password.
 def getPass2():
 
     # Asks user if they're satisfied with their password.
-    diffPass = input("\n\nWould you like a different password?\n\n").lower()
+    diffPass = input("\nWould you like a different password?\n\n").lower()
 
     # If statements to evaluate user input.
     if diffPass == 'yes' or diffPass == 'y':
         clear()
         getPass()
+        
     elif diffPass == 'no' or diffPass == "n":
         clear()
         farewell1 = "Alright! Wait for it"
