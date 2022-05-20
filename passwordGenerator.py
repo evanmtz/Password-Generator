@@ -1,29 +1,128 @@
-# Importing random module
-import random
+#PASSWORD GENERATOR
+# Importing modules
+from colorama import Fore, Style
+import random, os, sys, time
 
-# Characters that are going to be used to generate the password.
+# Lists
 listOfChar = list("aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ`1234567890-=[]\;',./!@#$%^&*()_+}{|:<>?")
 
-# Function to create a password with random characters and specified number of characters.
+listOfCol = [Style.BRIGHT, Fore.White, Fore.RED, Fore.BLUE, Fore.LIGHTMAGENTA_EX, Fore.LIGHTGREEN_EX, Fore.LIGHTYELLOW_EX]
+
+# Function used to clear program output when necessary.
+def clear():
+    os.system("clear")
+    
+# Function to generate a random password
 def getPass():
-# Asks user how many characters they'd like their password to have.
-    passwordLen = int(input("Enter the amount of characters you'd like your password to have: "))
+    
+    # Variable to store the password
+    password = ""
+    
+    # Asks user what length they'd like their password to be.
+    passwordLen = int(input(Style.RESET_ALL + "Input the amount of characters you'd like your password to have.\n\nIf the length of your password is irrelevant, input 999.\n\n"))
 
-# for loop that repeats however many times was specified in passwordLen.
+    # Evaluates user input
+    if passwordLen == 999:
+        
+        # 8-21 = Recommended length of a password 
+        passwordLen = random.randint(8, 21)
+        
+    elif passwordLen < 0 or passwordLen == 0:
+        clear()
+        print("Please input a number greater than 0.")
+        time.sleep(3)
+        clear()
+        getPass()
+        
+    # Clears any previous console output
+    clear()
+
+    # Cool little typing animation (lines 40-51)
+    animation1 = "Your generated password is"
+    animation2 = "..."
+    
+    for char in animation1:
+        print(char, end = "")
+        sys.stdout.flush()
+        time.sleep(0.05)
+
+    for char in animation2:
+        print(char, end = "")
+        sys.stdout.flush()
+        time.sleep(1)
+    
+    # Prints new line
+    print("\n")
+    
+    # For loop that generates the password.
     for i in range(passwordLen):
-    # Gets a random character from listOfChar and repeats however many times was specified in passwordLen and concatenates the characters to create a password.
-        print(random.choice(listOfChar),  end = "")
+        password = random.choice(listOfChar)
+        
+    print(password)
 
-# Runs getPass() function.
+    # Runs getPass2 function
+    getPass2()
+
+# Function to assure the user of his new generated password.
+def getPass2():
+
+    # Asks user if they're satisfied with their password.
+    diffPass = input("\nWould you like a different password?\n\n").lower()
+
+    # If statements to evaluate user input.
+    if diffPass == 'yes' or diffPass == 'y':
+        clear()
+        getPass()
+        
+    elif diffPass == 'no' or diffPass == "n":
+        clear()
+        farewell1 = "Alright! Wait for it"
+        farewell2 = "..."
+        for i in farewell1:
+            sys.stdout.write(i)
+            sys.stdout.flush()
+            time.sleep(0.05)
+            
+        for i in farewell2:
+            sys.stdout.write(i)
+            sys.stdout.flush()
+            time.sleep(1)
+
+        # Farewell!
+        while True:
+            print(random.choice(listOfCol) + "Have a good day!", end = " ")
+
+    # Unwanted user input.
+    elif diffPass != "yes" and "no":
+        clear()
+        print("Please input yes/y or no/n next time.")
+        time.sleep(3)
+        
+        restart = input("\nInput 'restart' to restart the program.\n\n").lower()
+
+        if restart == "restart":
+            clear()
+            getPass()
+        else:
+            clear()
+            print(Fore.RED + "You've terminated the prorgam.\n")
+            time.sleep(2)
+            print(Style.RESET_ALL + "Click Run to restart the program.\n")
+            while True:
+                break
+
+# Introduction
+intro = (Style.BRIGHT + "Welcome to my Password generator!\n\n")
+
+# Prints intro with typing animation
+for char in intro:
+# For reference: sys.stdout.write(i) = print(i, end = '')
+    print(char, end = '')
+    sys.stdout.flush()
+    time.sleep(0.05)
+
+# Pauses the console output for said seconds
+time.sleep(2)
+
+# Function getting executed to start the password generator
 getPass()
-
-# Asks user if they'd like a different password.
-diffPass = str(input("\nWould you like to generate a different password? (Yes or no) ")).lower()
-
-# if statement to identify wether user typed yes or no.
-# If user input "yes", getPass() function would run again.
-if diffPass == "yes":
-    getPass()
-# else if user input "no", user would recieve "Have a good day!"
-elif diffPass == "no":
-    print("Have a good day!")
